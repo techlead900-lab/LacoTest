@@ -1,0 +1,251 @@
+{
+  "documentMeta": {
+    "title": "Solar System 3D Visualization Application Design",
+    "audience": ["engineers", "devops", "data", "qa", "product"],
+    "status": "draft",
+    "sourceCitation": "PRD for Solar System 3D Visualization Application",
+    "lastUpdated": "2023-10-05",
+    "summary": "This document outlines the design of a 3D visualization application that renders the solar system, allowing users to interact with 3D models of the Sun and planets."
+  },
+  "overview": {
+    "product": "Solar System 3D Visualization Application",
+    "platforms": ["web"],
+    "goals": [
+      "Provide an interactive 3D model of the solar system",
+      "Enable users to learn about planets through an engaging interface"
+    ],
+    "personasFocus": ["Students", "Educators", "Astronomy Enthusiasts"],
+    "versionScope": {
+      "v1": [
+        "3D rendering of solar system",
+        "User interaction for zoom and rotation",
+        "Planet information display"
+      ]
+    }
+  },
+  "architecture": {
+    "topology": {
+      "style": "client-server",
+      "environments": ["development", "production"],
+      "regions": ["global"]
+    },
+    "frontend": {
+      "mobile": {
+        "tech": [],
+        "notifications": "N/A",
+        "offline": "N/A"
+      },
+      "web": {
+        "tech": ["WebGL", "JavaScript", "Three.js"],
+        "notifications": "None",
+        "i18n/a11y": "Basic accessibility features"
+      },
+      "shared": {
+        "designSystem": "Custom UI components",
+        "apiClient": "Fetch API"
+      }
+    },
+    "backend": {
+      "gateway": {
+        "apiGateway": "N/A",
+        "auth": "N/A"
+      },
+      "services": [
+        {
+          "name": "Planet Information Service",
+          "tech": "Node.js",
+          "responsibilities": ["Serve planet data"],
+          "storage": "JSON files",
+          "queues?": [],
+          "eventsOut?": [],
+          "batchJobs?": []
+        }
+      ],
+      "sharedModules": {
+        "commonLib": ["Utility functions"],
+        "openAPI": "N/A"
+      }
+    },
+    "infrastructure": {
+      "cloud": "AWS",
+      "compute": ["EC2"],
+      "data": ["S3"],
+      "messaging": [],
+      "notifications": [],
+      "cdnEdge": "CloudFront",
+      "secrets": "AWS Secrets Manager",
+      "iam": "IAM Roles",
+      "cicd": ["Jenkins"]
+    },
+    "observability": {
+      "logs": "CloudWatch",
+      "metrics": "CloudWatch",
+      "tracing": "N/A",
+      "alerts": "CloudWatch Alarms"
+    }
+  },
+  "dataModels": {
+    "storage": "JSON files on S3",
+    "entities": {
+      "Planet": {
+        "name": "string",
+        "description": "string",
+        "distanceFromSun": "number",
+        "radius": "number"
+      }
+    },
+    "indexes": [
+      "name"
+    ],
+    "retention": {
+      "rawCompletions": "N/A",
+      "logsMetrics": "30 days"
+    }
+  },
+  "communication": {
+    "protocols": {
+      "clientToServer": "HTTP",
+      "serverToServer": "N/A",
+      "async": "N/A",
+      "push": "N/A"
+    },
+    "authnAuthz": {
+      "authn": "N/A",
+      "authz": "N/A",
+      "tokenTransport": "N/A"
+    },
+    "apiContracts": {
+      "contentType": "application/json",
+      "versioning": "N/A",
+      "pagination": "N/A",
+      "errors": {
+        "format": "JSON",
+        "idempotency": "N/A",
+        "retryHints": "N/A"
+      }
+    },
+    "flows": [
+      {
+        "name": "Planet Data Retrieval",
+        "steps": [
+          "User selects a planet",
+          "Client requests planet data",
+          "Server responds with planet information"
+        ]
+      }
+    ]
+  },
+  "apiDesign": {
+    "auth": [],
+    "habits": [],
+    "completions": [],
+    "ai": [],
+    "schemas": {
+      "Planet": {
+        "name": "string",
+        "description": "string",
+        "distanceFromSun": "number",
+        "radius": "number"
+      }
+    }
+  },
+  "aiDesign": {
+    "smartReminderEngine": {
+      "inputs": [],
+      "approach": "N/A",
+      "persistence": "N/A",
+      "fallback": "N/A"
+    },
+    "habitSuggestionEngine": {
+      "inputs": [],
+      "approach": "N/A",
+      "privacy": "N/A"
+    },
+    "weeklySummaryGenerator": {
+      "inputs": [],
+      "approach": "N/A",
+      "delivery": "N/A"
+    },
+    "mlOps": {
+      "training": "N/A",
+      "monitoring": [],
+      "rollout": "N/A"
+    }
+  },
+  "notifications": {
+    "channels": [],
+    "payloadContract": {
+      "title": "",
+      "body": "",
+      "data": {}
+    },
+    "deliverySemantics": {
+      "retries": "N/A",
+      "optIn": "N/A",
+      "quietHours": "N/A"
+    }
+  },
+  "securityPrivacy": {
+    "gdpr": ["Not applicable"],
+    "piiProtection": ["Not applicable"],
+    "abusePrevention": ["Not applicable"]
+  },
+  "performanceSla": {
+    "frontend": {
+      "mobileLaunch": "N/A",
+      "webTTFB": "200ms"
+    },
+    "backend": {
+      "apiLatencyP95": "100ms",
+      "uptimeMonthly": "99.9%",
+      "reminderDeliverySuccess": "N/A",
+      "weeklySummaryGen": "N/A"
+    },
+    "capacityPlanning": {
+      "baseline": {
+        "users": "10,000 concurrent users",
+        "notificationsPerDay": "N/A"
+      },
+      "scaling": "Auto-scaling based on load"
+    }
+  },
+  "errorHandling": {
+    "offlineMode": "Display static message",
+    "reminderFailure": "N/A",
+    "timezoneChange": "N/A",
+    "aiFailure": "N/A",
+    "deletes": "N/A"
+  },
+  "devHints": {
+    "codingStandards": ["ESLint", "Prettier"],
+    "testing": {
+      "pyramid": "Unit > Integration > E2E",
+      "tools": ["Jest", "Cypress"],
+      "contracts": "Defined in OpenAPI spec"
+    },
+    "migrations": "N/A",
+    "featureFlags": "N/A",
+    "idempotency": "N/A",
+    "time": "N/A",
+    "dateMath": "N/A",
+    "errorModel": "Promise-based error handling",
+    "observability": "Integrated with CloudWatch",
+    "pullRequests": ["Review required", "CI checks must pass"],
+    "envVars": ["NODE_ENV", "AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+  },
+  "deployment": {
+    "pipeline": ["CodePipeline", "CodeDeploy"],
+    "rollbacks": "Automated rollback on failure",
+    "backups": "Daily S3 backups"
+  },
+  "appendix": {
+    "openQuestions": [
+      "How to handle real-time updates for planetary positions?",
+      "Should there be support for offline mode?"
+    ],
+    "nonGoalsV1": [
+      "Mobile app support",
+      "Advanced astronomical calculations"
+    ]
+  }
+}
